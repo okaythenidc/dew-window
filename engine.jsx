@@ -462,8 +462,8 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
     const droplets = stateRef.current.droplets;
     const tilt = stateRef.current.tilt;
     const gravityDir = {
-      x: Math.sin(tilt.x) + (tw.gravityX ?? 0),
-      y: Math.cos(tilt.x) * Math.cos(tilt.y),
+      x: tilt.x * 2.0 + (tw.gravityX ?? 0),
+      y: Math.max(-1, 1 - Math.abs(tilt.x) * 1.8) * (tilt.y < -0.3 ? -1 : 1),
     };
     const slideThresh = tw.slideThreshold;
 
