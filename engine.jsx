@@ -66,7 +66,8 @@ function sampleRadius(sizeBias, rng = Math.random) {
 function spawnAmbient(droplets, w, h, density, sizeBias, slideThreshold) {
   droplets.length = 0;
   const maxR = (slideThreshold ?? 8) * 0.82;
-  const cellSize = 10;
+  const isMobile = window.innerWidth < 768;
+  const cellSize = isMobile ? 20 : 13;
   const cols = Math.ceil(w / cellSize);
   const rows = Math.ceil(h / cellSize);
   for (let row = 0; row < rows; row++) {
