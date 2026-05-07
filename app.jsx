@@ -197,7 +197,18 @@ function App() {
       </div>
 
       {/* Tool dock — left side */}
-      <div className={`chrome tool-dock ${chromeVisible ? 'visible' : 'hidden'}`}>
+      <div className={`chrome tool-dock ${chromeVisible ? 'visible' : 'hidden'}`} style={{
+        ...(window.innerWidth < 768 ? {
+          left: '12px',
+          right: '12px',
+          bottom: '68px',
+          top: 'auto',
+          transform: 'none',
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          width: 'auto',
+        } : {})
+      }}>
         <button className={`tool ${t.tool === 'wipe' ? 'active' : ''}`} onClick={() => setTweak('tool', 'wipe')} title="Wipe (clear fog)">
           <ToolIcon name="wipe" /><span>Wipe</span>
         </button>
@@ -218,7 +229,17 @@ function App() {
       </div>
 
       {/* Scene picker — bottom center */}
-      <div className={`chrome scene-bar ${chromeVisible ? 'visible' : 'hidden'}`}>
+      <div className={`chrome scene-bar ${chromeVisible ? 'visible' : 'hidden'}`} style={{
+        ...(window.innerWidth < 768 ? {
+          left: '12px',
+          right: '12px',
+          bottom: '12px',
+          transform: 'none',
+          maxWidth: 'none',
+          width: 'auto',
+          justifyContent: 'space-around',
+        } : {})
+      }}>
         {Object.values(SCENES).map(s => (
           <button
             key={s.id}
