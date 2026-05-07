@@ -311,22 +311,20 @@ body {
 
   /* Tool dock — horizontal strip above scene bar, icon-only */
   .tool-dock {
-    left: 50%;
-    bottom: 72px;   /* sits above scene bar */
+    left: 12px;
+    right: 12px;
+    bottom: 72px;
     top: auto;
-    transform: translateX(-50%);
+    transform: none;
     flex-direction: row;
     gap: 2px;
     padding: 4px;
     border-radius: 14px;
+    justify-content: space-around;
   }
-  .tool-dock.hidden { transform: translate(-50%, 12px); opacity: 0; }
+  .tool-dock.hidden { transform: translateY(12px); opacity: 0; }
 
-  .tool {
-    width: 48px;
-    padding: 8px 4px;
-    border-radius: 10px;
-  }
+  .tool { width: auto; flex: 1; }
   .tool span { display: none; }  /* icon-only */
 
   .tool-sep {
@@ -339,7 +337,10 @@ body {
   /* Scene bar — slim row at very bottom */
   .scene-bar {
     bottom: 12px;
-    max-width: calc(100vw - 24px);
+    left: 12px;
+    right: 12px;
+    transform: none;
+    max-width: none;
     padding: 4px;
     border-radius: 14px;
     gap: 2px;
