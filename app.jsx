@@ -17,7 +17,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "mistVariation": 0.5,
   "tint": "#7a98b8",
   "tintAmount": 0.0,
-  "tiltEnabled": false,
+  "tiltEnabled": true,
   "sceneId": "morning"
 }/*EDITMODE-END*/;
 
@@ -302,7 +302,16 @@ function App() {
         <TweakSlider label="Wind" value={t.gravityX} min={-2} max={2} step={0.05}
           onChange={(v) => setTweak('gravityX', v)} />
         <TweakToggle label="Use device tilt" value={t.tiltEnabled}
-          onChange={(v) => setTweak('tiltEnabled', v)} />
+          onChange={(v) => {
+            if (v && typeof DeviceOrientationEvent !== 'undefined' &&
+                typeof DeviceOrientationEvent.requestPermission === 'function') {
+              DeviceOrientationEvent.requestPermission()
+                .then(res => { if (res === 'granted') setTweak('tiltEnabled', true); })
+                .catch(() => setTweak('tiltEnabled', true));
+            } else {
+              setTweak('tiltEnabled', v);
+            }
+          }} />
 
         <TweakSection label="Light" />
         <TweakColor label="Tint" value={t.tint}
