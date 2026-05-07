@@ -158,6 +158,15 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    if (typeof DeviceOrientationEvent !== 'undefined' &&
+        typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission()
+        .then(() => {})
+        .catch(() => {});
+    }
+  }, []);
+
   // File upload
   const onUpload = (e) => {
     const file = e.target.files?.[0];

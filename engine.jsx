@@ -477,7 +477,7 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
       if (d.sliding) {
         const g = tw.gravity * (0.4 + d.r / 8);
         d.vy += g * gravityDir.y * dt * 60;
-        d.vx += g * gravityDir.x * dt * 60 * 5.0;
+        d.vx += g * gravityDir.x * dt * 60 * 4.0;
         d.vy *= 0.96;
         d.vx *= 0.80;
         // CHANGE 4: near-zero horizontal jitter for smooth vertical trails
