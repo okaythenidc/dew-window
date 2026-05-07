@@ -780,32 +780,33 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
       stateRef.current.tilt = { x: 0, y: 0 };
       return;
     }
+
+    const startListening = () => {
+      window.addEventListener('deviceorientation', onOrient);
+    };
+
     const onOrient = (e) => {
-      const gamma = (e.gamma || 0); // left-right tilt, degrees
-      const beta = (e.beta || 0);   // front-back tilt, degrees
-      const orient = screen.orientation?.angle || window.orientation || 0;
-
-      let gx, gy;
-      if (orient === 90 || orient === -270) {
-        // Landscape right
-        gx = (beta - 45) / 90;
-        gy = gamma / 90;
-      } else if (orient === -90 || orient === 270) {
-        // Landscape left
-        gx = -(beta - 45) / 90;
-        gy = -gamma / 90;
-      } else {
-        // Portrait
-        gx = gamma / 90;
-        gy = (beta - 45) / 90;
-      }
-
+      const gamma = (e.gamma || 0);
+      const beta = (e.beta || 0);
+      const gx = gamma / 90;
+      const gy = (beta - 45) / 90;
       stateRef.current.tilt = {
         x: Math.max(-1, Math.min(1, gx)),
         y: Math.max(-1, Math.min(1, gy)),
       };
     };
-    window.addEventListener('deviceorientation', onOrient);
+
+    if (typeof DeviceOrientationEvent !== 'undefined' &&
+        typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission()
+        .then(response => {
+          if (response === 'granted') startListening();
+        })
+        .catch(console.error);
+    } else {
+      startListening();
+    }
+
     return () => window.removeEventListener('deviceorientation', onOrient);
   }, [tweaks.tiltEnabled]);
 
