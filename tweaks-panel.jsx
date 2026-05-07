@@ -224,7 +224,17 @@ function TweaksPanel({ title = 'Tweaks', children, open: openProp, onClose }) {
     <>
       <style>{__TWEAKS_STYLE}</style>
       <div ref={dragRef} className="twk-panel" data-noncommentable=""
-           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y, ...(window.innerWidth < 768 ? {
+             right: 0,
+             left: 0,
+             bottom: 0,
+             top: 'auto',
+             width: '100%',
+             maxHeight: '70vh',
+             borderRadius: '16px 16px 0 0',
+             overflowY: 'auto',
+             WebkitOverflowScrolling: 'touch',
+           } : {}) }}>
         <div className="twk-hd" onMouseDown={onDragStart}>
           <b>{title}</b>
           <button className="twk-x" aria-label="Close tweaks"
