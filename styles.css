@@ -301,59 +301,52 @@ body {
 /* ========== Mobile layout ========== */
 @media (max-width: 767px) {
 
-  /* Top bar — smaller */
   .top-bar { padding: 10px 14px; }
   .brand-sub { display: none; }
   .brand-name { font-size: 11px; }
   .ghost-btn { width: 30px; height: 30px; font-size: 13px; }
   .cap-btn { padding: 6px 10px; font-size: 11px; }
-  .cap-btn span:last-child { display: none; } /* hide "Capture" text, keep dot */
+  .cap-btn span:last-child { display: none; }
 
-  /* Tool dock — horizontal strip above scene bar, icon-only */
   .tool-dock {
-    left: 12px;
-    right: 12px;
-    bottom: 72px;
-    top: auto;
-    transform: none;
-    flex-direction: row;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 68px !important;
+    top: auto !important;
+    transform: none !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
     gap: 2px;
     padding: 4px;
     border-radius: 14px;
+    width: auto !important;
+  }
+  .tool-dock.hidden {
+    opacity: 0;
+    transform: translateY(8px) !important;
+    pointer-events: none;
+  }
+  .tool { width: auto !important; flex: 1; }
+  .tool span { display: none; }
+  .tool-sep { width: 1px; height: 32px; margin: 4px 2px; }
+
+  .scene-bar {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 12px !important;
+    transform: none !important;
+    max-width: none !important;
+    width: auto !important;
     justify-content: space-around;
   }
-  .tool-dock.hidden { transform: translateY(12px); opacity: 0; }
-
-  .tool { width: auto; flex: 1; }
-  .tool span { display: none; }  /* icon-only */
-
-  .tool-sep {
-    width: 1px;
-    height: auto;
-    margin: 4px 2px;
-    background: rgba(255,255,255,0.08);
+  .scene-bar.hidden {
+    opacity: 0;
+    transform: translateY(8px) !important;
+    pointer-events: none;
   }
-
-  /* Scene bar — slim row at very bottom */
-  .scene-bar {
-    bottom: 12px;
-    left: 12px;
-    right: 12px;
-    transform: none;
-    max-width: none;
-    padding: 4px;
-    border-radius: 14px;
-    gap: 2px;
-  }
-  .scene-chip {
-    padding: 4px 8px 4px 4px;
-    font-size: 10px;
-    gap: 5px;
-    border-radius: 10px;
-  }
+  .scene-chip { padding: 4px 8px 4px 4px; font-size: 10px; gap: 5px; border-radius: 10px; }
   .scene-swatch { width: 20px; height: 20px; border-radius: 6px; }
 
-  /* Tweaks panel — full-width bottom sheet */
   .twk-panel {
     right: 0 !important;
     bottom: 0 !important;
@@ -363,13 +356,7 @@ body {
     border-radius: 16px 16px 0 0 !important;
     box-shadow: 0 -8px 40px rgba(0,0,0,0.45) !important;
   }
-  .twk-x {
-    width: 28px !important;
-    height: 28px !important;
-    font-size: 16px !important;
-  }
 
-  /* Help overlay */
   .help-grid { grid-template-columns: 1fr; }
   .help-card { padding: 20px; }
 }
