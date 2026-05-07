@@ -788,6 +788,7 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
     const onOrient = (e) => {
       const gamma = (e.gamma || 0);
       const beta = (e.beta || 0);
+      console.log('gamma:', Math.round(gamma), 'beta:', Math.round(beta));
       const gx = gamma / 90;
       const gy = (beta - 45) / 90;
       stateRef.current.tilt = {
