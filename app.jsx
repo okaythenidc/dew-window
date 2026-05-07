@@ -197,7 +197,7 @@ function App() {
       </div>
 
       {/* Tool dock — left side */}
-      <div className={`chrome tool-dock ${chromeVisible ? 'visible' : 'hidden'}`}>
+      <div className={`chrome tool-dock ${chromeVisible ? 'visible' : 'hidden'}`} style={{ display: 'flex', flexDirection: window.innerWidth < 768 ? 'row' : 'column' }}>
         <button className={`tool ${t.tool === 'wipe' ? 'active' : ''}`} onClick={() => setTweak('tool', 'wipe')} title="Wipe (clear fog)">
           <ToolIcon name="wipe" /><span>Wipe</span>
         </button>
