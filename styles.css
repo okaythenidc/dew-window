@@ -298,13 +298,77 @@ body {
   border-color: rgba(255, 255, 255, 0.28) !important;
 }
 
-/* Mobile tweaks */
-@media (max-width: 720px) {
-  .scene-bar { max-width: calc(100vw - 32px); bottom: 90px; }
-  .tool-dock { left: 50%; bottom: 22px; top: auto; transform: translateX(-50%); flex-direction: row; }
-  .tool-dock.hidden { transform: translate(-50%, 12px); }
-  .tool { width: 56px; padding: 8px 4px; font-size: 9.5px; }
-  .top-bar { padding: 14px 16px; }
+/* ========== Mobile layout ========== */
+@media (max-width: 767px) {
+
+  /* Top bar — smaller */
+  .top-bar { padding: 10px 14px; }
   .brand-sub { display: none; }
+  .brand-name { font-size: 11px; }
+  .ghost-btn { width: 30px; height: 30px; font-size: 13px; }
+  .cap-btn { padding: 6px 10px; font-size: 11px; }
+  .cap-btn span:last-child { display: none; } /* hide "Capture" text, keep dot */
+
+  /* Tool dock — horizontal strip above scene bar, icon-only */
+  .tool-dock {
+    left: 50%;
+    bottom: 72px;   /* sits above scene bar */
+    top: auto;
+    transform: translateX(-50%);
+    flex-direction: row;
+    gap: 2px;
+    padding: 4px;
+    border-radius: 14px;
+  }
+  .tool-dock.hidden { transform: translate(-50%, 12px); opacity: 0; }
+
+  .tool {
+    width: 48px;
+    padding: 8px 4px;
+    border-radius: 10px;
+  }
+  .tool span { display: none; }  /* icon-only */
+
+  .tool-sep {
+    width: 1px;
+    height: auto;
+    margin: 4px 2px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* Scene bar — slim row at very bottom */
+  .scene-bar {
+    bottom: 12px;
+    max-width: calc(100vw - 24px);
+    padding: 4px;
+    border-radius: 14px;
+    gap: 2px;
+  }
+  .scene-chip {
+    padding: 4px 8px 4px 4px;
+    font-size: 10px;
+    gap: 5px;
+    border-radius: 10px;
+  }
+  .scene-swatch { width: 20px; height: 20px; border-radius: 6px; }
+
+  /* Tweaks panel — full-width bottom sheet */
+  .twk-panel {
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-height: 70vh !important;
+    border-radius: 16px 16px 0 0 !important;
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.45) !important;
+  }
+  .twk-x {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 16px !important;
+  }
+
+  /* Help overlay */
   .help-grid { grid-template-columns: 1fr; }
+  .help-card { padding: 20px; }
 }
