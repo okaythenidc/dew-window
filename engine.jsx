@@ -316,7 +316,7 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
   const wipeLine = useCallback((x1, y1, x2, y2, brushR) => {
     const dx = x2 - x1, dy = y2 - y1;
     const dist = Math.hypot(dx, dy);
-    const steps = Math.max(1, Math.ceil(dist / (brushR * 0.25)));
+    const steps = Math.max(1, Math.ceil(dist / (brushR * 0.15)));
     for (let i = 0; i <= steps; i++) {
       const t = i / steps;
       wipeAt(x1 + dx * t, y1 + dy * t, brushR, 0.85);
@@ -556,7 +556,8 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
               const hitAngle = Math.atan2(a.y - b.y, a.x - b.x);
               a.vx += Math.cos(hitAngle) * 0.4;
               a.vy += Math.sin(hitAngle) * 0.2;
-              if (a.vy < 0.3) a.vy = 0.3 + Math.random() * 0.4;
+              const gSign = gravityDir.y >= 0 ? 1 : -1;
+            if (a.vy * gSign < 0.3) a.vy = gSign * (0.3 + Math.random() * 0.4);
             } else if (a.r > slideThresh * 1.2 && !a.pinned) {
               a.sliding = true;
               a.vy = 0.2 + Math.random() * 0.3;
