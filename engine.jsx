@@ -470,6 +470,10 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
           x: tw.gravityX ?? 0,
           y: 1,
         };
+    if (!window._glog || performance.now() - window._glog > 1000) {
+      window._glog = performance.now();
+      console.log('tiltEnabled:', tw.tiltEnabled, 'gravityDir.y:', gravityDir.y.toFixed(3));
+    }
     const slideThresh = tw.slideThreshold;
 
     for (let i = 0; i < droplets.length; i++) {
