@@ -471,10 +471,6 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
           x: tw.gravityX ?? 0,
           y: 1,
         };
-    if (!window._glog || performance.now() - window._glog > 1000) {
-      window._glog = performance.now();
-      console.log('tiltEnabled:', tw.tiltEnabled, 'gravityDir.y:', gravityDir.y.toFixed(3));
-    }
     const slideThresh = tw.slideThreshold;
 
     for (let i = 0; i < droplets.length; i++) {
@@ -681,14 +677,6 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
       const dt = Math.min(0.05, st.lastT ? (t - st.lastT) / 1000 : 0.016);
       st.lastT = t;
       step(dt);
-      const firstSlider = stateRef.current.droplets.find(d => d.sliding);
-      if (firstSlider) {
-        const now = performance.now();
-        if (!window._lastDrop || now - window._lastDrop > 500) {
-          window._lastDrop = now;
-          console.log('drop y:', firstSlider.y.toFixed(1), 'vy:', firstSlider.vy.toFixed(3));
-        }
-      }
       refogStep(dt);
       drawDroplets();
       composite();
