@@ -461,10 +461,9 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
     const { w, h } = stateRef.current.size;
     const droplets = stateRef.current.droplets;
     const tilt = stateRef.current.tilt;
-    const hasTilt = window.DeviceOrientationEvent && tweaksRef.current.tiltEnabled;
     const gravityDir = {
-      x: hasTilt ? (Math.sin(tilt.x) + (tw.gravityX ?? 0)) : (tw.gravityX ?? 0),
-      y: hasTilt ? Math.cos(tilt.x) * Math.cos(tilt.y) : 1,
+      x: Math.sin(tilt.x) + (tw.gravityX ?? 0),
+      y: Math.cos(tilt.x) * Math.cos(tilt.y),
     };
     const slideThresh = tw.slideThreshold;
 
