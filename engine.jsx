@@ -465,6 +465,11 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
       x: tilt.x * 2.0 + (tw.gravityX ?? 0),
       y: Math.max(-1, 1 - Math.abs(tilt.x) * 1.8) * (tilt.y < -0.3 ? -1 : 1),
     };
+    const now = performance.now();
+    if (!stateRef.current._gravLogT || now - stateRef.current._gravLogT >= 1000) {
+      stateRef.current._gravLogT = now;
+      console.log('gravityDir', gravityDir.x.toFixed(3), gravityDir.y.toFixed(3), 'tilt', stateRef.current.tilt.x.toFixed(3), stateRef.current.tilt.y.toFixed(3));
+    }
     const slideThresh = tw.slideThreshold;
 
     for (let i = 0; i < droplets.length; i++) {
@@ -480,6 +485,7 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
         d.vx += g * gravityDir.x * dt * 60 * 4.0;
         d.vy *= 0.96;
         d.vx *= 0.80;
+        if (Math.random() < 0.001) console.log('vy', d.vy.toFixed(3), 'vx', d.vx.toFixed(3));
         // CHANGE 4: near-zero horizontal jitter for smooth vertical trails
         if (!d._wx) d._wx = 0;
         d._wx = d._wx * 0.85 + (Math.random() - 0.5) * 0.08;
