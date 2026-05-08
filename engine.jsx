@@ -494,9 +494,20 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
         const ny = d.y + d.vy * dt * 60;
 
         if (Math.abs(ny - d.y) > 0.3 || Math.abs(nx - d.x) > 0.3) {
-          // CHANGE 5: trail width proportional to drop, continuous coverage
           const trailR = Math.max(1.5, d.r * 0.42);
-          wipeLine(d.x, d.y, nx, ny, trailR);
+          const moveDist = Math.hypot(nx - d.x, ny - d.y);
+          const trailSteps = Math.max(1, Math.ceil(moveDist / (trailR * 0.4)));
+          for (let s = 1; s <= trailSteps; s++) {
+            const t0 = (s - 1) / trailSteps;
+            const t1 = s / trailSteps;
+            wipeLine(
+              d.x + (nx - d.x) * t0,
+              d.y + (ny - d.y) * t0,
+              d.x + (nx - d.x) * t1,
+              d.y + (ny - d.y) * t1,
+              trailR
+            );
+          }
         }
 
         if (!d.trail) d.trail = [];
