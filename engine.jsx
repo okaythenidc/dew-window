@@ -485,7 +485,11 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
         d.vx += g * gravityDir.x * dt * 60 * 4.0;
         d.vy *= 0.96;
         d.vx *= 0.80;
-        if (Math.random() < 0.001) console.log('vy', d.vy.toFixed(3), 'vx', d.vx.toFixed(3));
+        const _vNow = performance.now();
+        if (!stateRef.current._vyLogT || _vNow - stateRef.current._vyLogT >= 1000) {
+          stateRef.current._vyLogT = _vNow;
+          console.log('vy', d.vy.toFixed(3), 'vx', d.vx.toFixed(3), 'gravityDir.y', gravityDir.y.toFixed(3));
+        }
         // CHANGE 4: near-zero horizontal jitter for smooth vertical trails
         if (!d._wx) d._wx = 0;
         d._wx = d._wx * 0.85 + (Math.random() - 0.5) * 0.08;
