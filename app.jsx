@@ -17,7 +17,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "mistVariation": 0.5,
   "tint": "#7a98b8",
   "tintAmount": 0.0,
-  "tiltEnabled": true,
+  "tiltEnabled": false,
   "sceneId": "morning"
 }/*EDITMODE-END*/;
 
