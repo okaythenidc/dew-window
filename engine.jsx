@@ -558,9 +558,15 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
           if (dx * dx + dy * dy < rr * rr) {
             const newR = Math.min(slideThresh * 1.5, Math.sqrt(a.r * a.r + b.r * b.r));
             const wA = a.r * a.r, wB = b.r * b.r, tot = wA + wB;
+            const oldX = a.x;
+            const oldY = a.y;
             if (!a.sliding) {
               a.x = (a.x * wA + b.x * wB) / tot;
               a.y = (a.y * wA + b.y * wB) / tot;
+            }
+            if (a.sliding || b.sliding) {
+              const trailR = Math.max(1.5, a.r * 0.42);
+              wipeLine(oldX, oldY, a.x, a.y, trailR);
             }
             a.r = newR;
             a.mergeT = performance.now();
