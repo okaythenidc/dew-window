@@ -578,6 +578,7 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
             a.pinned = a.pinned && b.pinned;
             if (a.sliding || b.sliding) {
               a.sliding = true; a.pinned = false;
+              a.vx += (Math.random() - 0.5) * 0.6;
               const gSign = gravityDir.y >= 0 ? 1 : -1;
             if (a.vy * gSign < 0.3) a.vy = gSign * (0.3 + Math.random() * 0.4);
             } else if (a.r > slideThresh * 1.2 && !a.pinned) {
