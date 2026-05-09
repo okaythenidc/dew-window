@@ -556,31 +556,23 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
           const dx = a.x - b.x, dy = a.y - b.y;
           const rr = a.r + b.r;
           if (dx * dx + dy * dy < rr * rr) {
-            if (a.sliding) {
-              wipeLine(a.x, a.y, b.x, b.y, Math.max(1.5, a.r * 0.42));
-            }
             const newR = Math.min(slideThresh * 1.5, Math.sqrt(a.r * a.r + b.r * b.r));
             const wA = a.r * a.r, wB = b.r * b.r, tot = wA + wB;
-            const oldX = a.x;
-            const oldY = a.y;
             if (!a.sliding) {
               a.x = (a.x * wA + b.x * wB) / tot;
               a.y = (a.y * wA + b.y * wB) / tot;
             }
-            if (a.sliding || b.sliding) {
-              const trailR = Math.max(1.5, a.r * 0.42);
-              wipeLine(oldX, oldY, a.x, a.y, trailR);
-            }
             a.r = newR;
             a.mergeT = performance.now();
-            if (!a.sliding) {
-              a.vx = (a.vx * wA + b.vx * wB) / tot;
-              a.vy = (a.vy * wA + b.vy * wB) / tot;
-            }
+            a.vx = (a.vx * wA + b.vx * wB) / tot;
+            a.vy = (a.vy * wA + b.vy * wB) / tot;
             a.pinned = a.pinned && b.pinned;
             if (a.sliding || b.sliding) {
               a.sliding = true; a.pinned = false;
-              a.vx += (Math.random() - 0.5) * 0.6;
+              // Deflect horizontally based on relative position
+              const hitAngle = Math.atan2(a.y - b.y, a.x - b.x);
+              a.vx += Math.cos(hitAngle) * 0.4;
+              a.vy += Math.sin(hitAngle) * 0.2;
               const gSign = gravityDir.y >= 0 ? 1 : -1;
             if (a.vy * gSign < 0.3) a.vy = gSign * (0.3 + Math.random() * 0.4);
             } else if (a.r > slideThresh * 1.2 && !a.pinned) {
