@@ -572,7 +572,6 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
               // Deflect horizontally based on relative position
               const hitAngle = Math.atan2(a.y - b.y, a.x - b.x);
               a.vx += Math.cos(hitAngle) * 0.4;
-              a.vy += Math.sin(hitAngle) * 0.2;
               const gSign = gravityDir.y >= 0 ? 1 : -1;
             if (a.vy * gSign < 0.3) a.vy = gSign * (0.3 + Math.random() * 0.4);
             } else if (a.r > slideThresh * 1.2 && !a.pinned) {
