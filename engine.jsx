@@ -556,6 +556,9 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
           const dx = a.x - b.x, dy = a.y - b.y;
           const rr = a.r + b.r;
           if (dx * dx + dy * dy < rr * rr) {
+            if (a.sliding) {
+              wipeLine(a.x, a.y, b.x, b.y, Math.max(1.5, a.r * 0.42));
+            }
             const newR = Math.min(slideThresh * 1.5, Math.sqrt(a.r * a.r + b.r * b.r));
             const wA = a.r * a.r, wB = b.r * b.r, tot = wA + wB;
             const oldX = a.x;
