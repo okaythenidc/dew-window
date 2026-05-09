@@ -573,8 +573,10 @@ function CondensationEngine({ tweaks, scene, onCapture, registerCaptureRef }) {
             }
             a.r = newR;
             a.mergeT = performance.now();
-            a.vx = (a.vx * wA + b.vx * wB) / tot;
-            a.vy = (a.vy * wA + b.vy * wB) / tot;
+            if (!a.sliding) {
+              a.vx = (a.vx * wA + b.vx * wB) / tot;
+              a.vy = (a.vy * wA + b.vy * wB) / tot;
+            }
             a.pinned = a.pinned && b.pinned;
             if (a.sliding || b.sliding) {
               a.sliding = true; a.pinned = false;
